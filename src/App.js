@@ -1,23 +1,26 @@
-import logo from './logo.svg';
 import './App.css';
+import { Route, Navigate, Routes } from "react-router-dom";
+import Home from './components/HomeScreen';
+import Header from './components/Header/Header';
+import Footer from './components/Footer/Footer';
+// import SingUp from './components/SingUpScreen';
+// import SingIn from './components/SingInScreen';
+// import Bookings from './components/BookingsScreen';
+// import TripInfoScreen from './components/TripInfoScreen';
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Header />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          {/* <Route path="/sing-up" element={<SingUp />} />
+          <Route path="/sing-in" element={<SingIn />} />
+          <Route path="/bookings" element={<Bookings />} />
+          <Route path="/trip/:tripId" element={<TripInfoScreen />} />
+          <Route path="*" element={<Navigate to="/" />} /> */}
+        </Routes>
+        <Footer />
     </div>
   );
 }
