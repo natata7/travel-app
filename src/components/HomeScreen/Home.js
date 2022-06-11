@@ -2,13 +2,18 @@ import "./Home.css";
 import { useEffect, useState } from "react";
 import TripCard from "../TripCard/TripCard";
 import Filter from "../Filter/Filter";
-import Loader from "./loader/loader";
+import Loader from "../Loader/loader";
 import { getTripDetails } from "../../helpers/tripService";
+import { getFilteredTrips } from '../../helpers/getFilteredTrips';
 
 function Home() {
   const [error, setError] = useState(null);
   const [isLoaded, setIsLoaded] = useState(false);
   const [trips, setTrips] = useState([]);
+
+  const [filterValues, setFilterValues] = useState({search:'', duration: 'duration', level: 'level'});
+  const handlerFilterChange = (values) => setFilterValues(values);
+  const filteredTrips = getFilteredTrips(trips, filterValues);
 
   useEffect(() => {
     getTripDetails()
@@ -33,11 +38,14 @@ function Home() {
     return (
       <main>
         <h1 className="visually-hidden">Travel App</h1>
-        <Filter />
+        <Filter
+          values={filterValues}
+          onChange={handlerFilterChange}
+        />
         <section className="trips">
           <h2 className="visually-hidden">Trips List</h2>
           <ul className="trip-list">
-            {trips.map((trip) => (
+            {filteredTrips.map((trip) => (
               <TripCard trip={trip} key={trip.id} />
             ))}
           </ul>

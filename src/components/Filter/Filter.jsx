@@ -1,30 +1,61 @@
 import './Filter.css';
+import { TripDuration, TripLevel } from '../../enums/enum';
+import { DEFAULT_FILTER_VALUE } from '../../constants/filter.constants';
 
-function Filter() {
+const durationOptions = ['duration'].concat(Object.values(TripDuration));
+const levelOptions = ['level'].concat(Object.values(TripLevel));
+
+function Filter({ values, isDisabled, onChange, onPopupOpen }) {
+
+    const handleChange = ({ target }) => {
+        const { name, value } = target;
+
+        onChange({
+            ...values,
+            [name]: value,
+        });
+    };
+
     return (
         <section className="trips-filter">
             <h2 className="visually-hidden">Trips filter</h2>
             <form className="trips-filter__form" autoComplete="off">
                 <label className="trips-filter__search input">
                     <span className="visually-hidden">Search by name</span>
-                    <input name="search" type="search" placeholder="search by title" />
+                    <input
+                        name="search"
+                        type="search"
+                        placeholder="search by title"
+                        value={values.search}
+                        disabled={isDisabled}
+                        onChange={handleChange} />
                 </label>
                 <label className="select">
                     <span className="visually-hidden">Search by duration</span>
-                    <select name="duration">
-                        <option value="">duration</option>
-                        <option value="0_x_5">&lt; 5 days</option>
-                        <option value="5_x_10">&lt; 10 days</option>
-                        <option value="10_x">&ge; 10 days</option>
+                    <select name="duration"
+                        value={values.duration}
+                        disabled={isDisabled}
+                        onChange={handleChange}
+                    >
+                        {durationOptions.map((it) => (
+                            <option value={it} key={it}>
+                                {it}
+                            </option>
+                        ))}
                     </select>
                 </label>
                 <label className="select">
                     <span className="visually-hidden">Search by level</span>
-                    <select name="level">
-                        <option value="">level</option>
-                        <option value="easy">easy</option>
-                        <option value="moderate">moderate</option>
-                        <option value="difficult">difficult</option>
+                    <select name="level"
+                        value={values.level}
+                        disabled={isDisabled}
+                        onChange={handleChange}
+                    >
+                        {levelOptions.map((it) => (
+                            <option value={it} key={it}>
+                                {it}
+                            </option>
+                        ))}
                     </select>
                 </label>
             </form>
