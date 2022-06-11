@@ -1,7 +1,10 @@
 import { trips, bookings } from "./database";
 
 export async function getTripDetails(id) {
-  const response = trips;
+  let response = trips;
+  if(id){
+    response = trips.find(x => x.id === id);
+  }
   return new Promise((resolve, reject) => {
     setTimeout(
       () => (response ? resolve(response) : reject(Error("Failed to load"))),
