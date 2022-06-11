@@ -1,8 +1,10 @@
 import './TripPage.css';
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { useParams } from "react-router-dom";
 import { getTripDetails } from "../../helpers/tripService";
 import Loader from "../Loader/loader";
+import TripPopup from "../TripPopup/TripPopup";
+
 
 function TripPage() {
   const { tripId } = useParams();
@@ -10,6 +12,14 @@ function TripPage() {
   const [error, setError] = useState(null);
   const [isLoaded, setIsLoaded] = useState(false);
   const [trip, setTrip] = useState([]);
+  const [currentTrip, setCurrentTrip] = useState(null);
+
+  const handleAddPopupOpen = () => setCurrentTrip(trip);
+  const handleAddPopupClose = () => setCurrentTrip(null);
+
+  const handleTripSave = useCallback((todo) => {
+    setCurrentTrip(null)
+  });
 
   useEffect(() => {
     getTripDetails(tripId)
@@ -49,9 +59,22 @@ function TripPage() {
               <span>Price</span>
               <strong className="trip-price__value">{trip.price} $</strong>
             </div>
-            <button className="trip__button button">Book a trip</button>
+            <button
+              className="trip__button button"
+              onClick={handleAddPopupOpen}
+            >
+              Book a trip</button>
           </div>
         </div>
+        {
+          currentTrip && (
+            <TripPopup
+              trip={currentTrip}
+              onSave={handleTripSave}
+              onClose={handleAddPopupClose}
+            />
+          )
+        }
       </main>
     );
   }
