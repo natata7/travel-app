@@ -25,7 +25,7 @@
 .trips-filter__search input {
     padding-left: 50px;
     background-color: var(--color-white);
-    background-image: url('/public/images/search.svg');
+    background-image: url('/build/images/search.svg');
     background-repeat: no-repeat;
     background-position: 15px 50%;
     background-size: 22px;

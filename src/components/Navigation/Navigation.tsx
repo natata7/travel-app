@@ -1,4 +1,6 @@
 import { Link } from "react-router-dom";
+import BriefCase from "../icons/briefcase";
+import User from "../icons/user";
 
 interface IHandlerLogOutProps {
   handlerLogOut: (arg0: boolean) => void;
@@ -14,13 +16,13 @@ function Navigation({ handlerLogOut }: IHandlerLogOutProps) {
         <li className="nav-header__item" title="Bookings">
           <Link to="/bookings" className="nav-header__inner">
             <span className="visually-hidden">Bookings</span>
-            <img src="/images/briefcase.svg" alt=" icon" />
+            <BriefCase />
           </Link>
         </li>
         <li className="nav-header__item" title="Profile">
           <div className="nav-header__inner profile-nav" tabIndex={Number(0)}>
             <span className="visually-hidden">Profile</span>
-            <img src="/images/user.svg" alt="profile icon" />
+            <User />
             <ul className="profile-nav__list">
               <li className="profile-nav__item profile-nav__username">
                 John Doe
