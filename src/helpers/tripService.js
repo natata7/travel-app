@@ -15,7 +15,7 @@ export async function getTripDetails(id) {
 
 export async function getBookingsDetails(id) {
   const response = bookings;
-  
+
   const sortByDate = (arr) => {
     const sorter = (a, b) => {
       return new Date(a.date).getTime() - new Date(b.date).getTime();
