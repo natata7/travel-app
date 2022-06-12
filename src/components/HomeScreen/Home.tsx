@@ -5,14 +5,18 @@ import Filter from "../Filter/Filter";
 import Loader from "../Loader/loader";
 import { getTripDetails } from "../../helpers/tripService";
 import { getFilteredTrips } from '../../helpers/getFilteredTrips';
+import IFilter from "../../interfaces/Filter.interface";
+import IErrors from "../../interfaces/Error.interface";
+import { ITrip } from "../../interfaces/Trip.interface";
+
 
 function Home() {
-  const [error, setError] = useState(null);
+  const [error, setError] = useState<IErrors>();
   const [isLoaded, setIsLoaded] = useState(false);
-  const [trips, setTrips] = useState([]);
+  const [trips, setTrips] = useState<ITrip[]>([]);
 
   const [filterValues, setFilterValues] = useState({search:'', duration: 'duration', level: 'level'});
-  const handlerFilterChange = (values) => setFilterValues(values);
+  const handlerFilterChange = (values:IFilter) => setFilterValues(values);
   const filteredTrips = getFilteredTrips(trips, filterValues);
 
   useEffect(() => {
@@ -45,7 +49,7 @@ function Home() {
         <section className="trips">
           <h2 className="visually-hidden">Trips List</h2>
           <ul className="trip-list">
-            {filteredTrips.map((trip) => (
+            {filteredTrips.map((trip:ITrip) => (
               <TripCard trip={trip} key={trip.id} />
             ))}
           </ul>

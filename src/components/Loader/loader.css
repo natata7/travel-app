@@ -7,4 +7,17 @@
     border-top: 4px solid transparent;
     border-radius: 50%;
     animation: rotate 1.2s infinite linear;
+    margin: auto;
 }
+
+/* animations */
+
+@keyframes rotate {
+    from {
+      transform: rotate(0deg);
+    }
+  
+    to {
+      transform: rotate(360deg);
+    }
+  }

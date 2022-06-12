@@ -3,13 +3,15 @@ import { useMemo, useState } from "react";
 import { getBookingsDetails } from "../../helpers/tripService";
 import Loader from "../Loader/loader";
 import BookingTripCard from "../BookingTripCard/BookingTripCard";
+import IErrors from "../../interfaces/Error.interface";
+import { IBooking } from "../../interfaces/IBooking.interface";
 
 function Bookings() {
-    const [error, setError] = useState(null);
+    const [error, setError] = useState<IErrors>();
     const [isLoaded, setIsLoaded] = useState(false);
-    const [bookings, setBookings] = useState([]);
+    const [bookings, setBookings] = useState<IBooking[]>([]);
 
-    const handleCancelBooking = (id) =>{
+    const handleCancelBooking = (id:string) =>{
         setBookings(bookings.filter(x => x.id !== id))
     }
 

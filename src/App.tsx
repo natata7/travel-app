@@ -9,8 +9,8 @@ import TripPage from "./components/TripInfoScreen/TripPage";
 import { useState } from "react";
 
 function App() {
-  const [isLoggedin, setIsLoggedin] = useState(false);
-  function handleLoggedinClick() {
+  const [isLoggedin, setIsLoggedin] = useState<boolean>(false);
+  function handleLoggedinClick():void {
     setIsLoggedin(true);
   }
 

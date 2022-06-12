@@ -1,8 +1,11 @@
-export default function validate(values) {
-    let errors = {};
+import IErrors from "../../interfaces/Error.interface";
+import IForm from "../../interfaces/Form.interface";
+
+export default function validate(values: IForm) {
+    let errors:IErrors = {};
     if (!values.fullname) {
         errors.fullname = 'Full name is required';
-      } else if (values.fullname < 3) {
+      } else if (values.fullname.length < 3) {
         errors.fullname = 'Full name is invalid';
       }
     if (!values.email) {

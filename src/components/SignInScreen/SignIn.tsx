@@ -4,7 +4,7 @@ import useForm from "../../hooks/useForm";
 import validate from './LoginFormValidationRules';
 import { useNavigate } from "react-router-dom";
 
-function SignIn({ onSubmit }) {
+function SignIn({ onSubmit }:any) {
 
     const {
         values,

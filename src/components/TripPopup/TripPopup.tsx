@@ -1,11 +1,13 @@
 import "./TripPopup.css";
-import { useEffect, useState, useCallback } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import IErrors from "../../interfaces/Error.interface";
+import { ITripPopupProps } from "../../interfaces/Trip.interface";
 
-function TripPopup({ trip, onClose }) {
-  const [guests, setGuests] = useState(1);
-  const [date, setDate] = useState();
-  const [errors, setErrors] = useState({});
+function TripPopup ({ trip, onClose }: ITripPopupProps) {
+  const [guests, setGuests] = useState<number>(1);
+  const [date, setDate] = useState<string>();
+  const [errors, setErrors] = useState<any>({});
 
   const navigate = useNavigate();
 
@@ -17,8 +19,8 @@ function TripPopup({ trip, onClose }) {
     return yyyy + "-" + mm + "-" + dd;
   };
 
-  const validateGuests = (value) => {
-    let errors = {};
+  const validateGuests = (value: number) => {
+    let errors: IErrors = {};
     if (!value) {
       errors.guests = "Number is required";
     } else if (value < 1 || value > 10) {
@@ -26,30 +28,33 @@ function TripPopup({ trip, onClose }) {
     }
     return errors;
   };
-  const validateDate = (value) => {
-    let errors = {};
+  const validateDate = (value: string) => {
+    let errors: IErrors = {};
     if (new Date(value) <= new Date()) {
       errors.date = "Start date must be in future";
     }
     return errors;
   };
 
-  const handleChangeDate = (event) => {
+  const handleChangeDate = (event: React.ChangeEvent<HTMLInputElement>) => {
     event.persist();
     setErrors(validateDate(event.target.value));
     setDate(event.target.value);
   };
 
-  const handleChangeGuests = (event) => {
+  const handleChangeGuests = (event: React.ChangeEvent<HTMLInputElement>) => {
     event.persist();
-    setErrors(validateGuests(event.target.value));
-    if (event.target.value < 1) {
+    
+    const currentGuestsValue = Number(event.target.value);
+    setErrors(validateGuests(currentGuestsValue));
+    if (currentGuestsValue < 1) {
       setGuests(1);
-    } else if (event.target.value > 10) {
+    } else if (currentGuestsValue > 10) {
       setGuests(10);
     } else {
-      setGuests(event.target.value);
+      setGuests(currentGuestsValue);
     }
+    console.log(guests)
   };
 
   const handleSubmit = () => {
@@ -97,7 +102,7 @@ function TripPopup({ trip, onClose }) {
                 min="1"
                 max="10"
                 required
-                value={guests || ""}
+                value={guests || 1 }
                 onChange={handleChangeGuests}
               />
               {errors.guests && (
@@ -107,7 +112,7 @@ function TripPopup({ trip, onClose }) {
             <span className="trip-popup__total">
               Total:{" "}
               <output className="trip-popup__total-value">
-                {trip.price * guests}$
+                {trip.price * Number(guests)}$
               </output>
             </span>
             <button className="button" type="submit">

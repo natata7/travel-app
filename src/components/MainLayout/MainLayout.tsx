@@ -3,7 +3,12 @@ import { Outlet } from "react-router-dom";
 import Header from "../Header/Header";
 import Footer from "../Footer/Footer";
 
-function MainLayout({isLoggedin, onLoggedOut}) {
+interface IMainLayoutProps {
+  isLoggedin: boolean;
+  onLoggedOut: (arg0: boolean) => void;
+}
+
+function MainLayout({isLoggedin, onLoggedOut}:IMainLayoutProps) {
   return (
     <>
       <Header isLoggedin={isLoggedin} setIsLoggedin={onLoggedOut} />

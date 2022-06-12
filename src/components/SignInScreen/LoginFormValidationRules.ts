@@ -1,5 +1,8 @@
-export default function validate(values) {
-    let errors = {};
+import IErrors from "../../interfaces/Error.interface";
+import IForm from "../../interfaces/Form.interface";
+
+export default function validate(values: IForm) {
+    let errors:IErrors = {};
     if (!values.email) {
       errors.email = 'Email address is required';
     } else if (!/\S+@\S+\.\S+/.test(values.email)) {

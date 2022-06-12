@@ -1,9 +1,10 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
+import { IErrors } from "../interfaces/Error.interface";
+import { IForm } from "../interfaces/Form.interface";
 
 const useForm = (callback, validate) => {
-
-  const [values, setValues] = useState({});
-  const [errors, setErrors] = useState({});
+  const [values, setValues] = useState({fullname: '', email: '', password: ''});
+  const [errors, setErrors] = useState({fullname: '', email: '', password: ''});
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   useEffect(() => {
