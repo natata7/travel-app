@@ -10,14 +10,19 @@ import { useState } from "react";
 
 function App() {
   const [isLoggedin, setIsLoggedin] = useState<boolean>(false);
-  function handleLoggedinClick():void {
+  function handleLoggedinClick(): void {
     setIsLoggedin(true);
   }
 
   return (
     <div className="App">
       <Routes>
-        <Route path="/" element={<MainLayout isLoggedin={isLoggedin} onLoggedOut={setIsLoggedin}/>}>
+        <Route
+          path="/"
+          element={
+            <MainLayout isLoggedin={isLoggedin} onLoggedOut={setIsLoggedin} />
+          }
+        >
           <Route
             index
             element={isLoggedin ? <Home /> : <Navigate to="/sign-up" />}
@@ -26,9 +31,12 @@ function App() {
             path="bookings"
             element={isLoggedin ? <Bookings /> : <Navigate to="/sign-up" />}
           />
+          <Route
+            path="trip/:tripId"
+            element={isLoggedin ? <TripPage /> : <Navigate to="/sign-up" />}
+          />
           <Route path="sign-up" element={<SingUp onSubmit={setIsLoggedin} />} />
           <Route path="sign-in" element={<SingIn onSubmit={setIsLoggedin} />} />
-          <Route path="trip/:tripId" element={<TripPage />} />
         </Route>
         <Route path="*" element={<Navigate to="/" />} />
       </Routes>
