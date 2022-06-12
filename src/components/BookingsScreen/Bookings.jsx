@@ -10,7 +10,6 @@ function Bookings() {
     const [bookings, setBookings] = useState([]);
 
     const handleCancelBooking = (id) =>{
-        console.log(id)
         setBookings(bookings.filter(x => x.id !== id))
     }
 

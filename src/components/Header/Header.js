@@ -2,14 +2,14 @@ import "./Header.css";
 import { Link } from "react-router-dom";
 import Navigation from "../Navigation/Navigation";
 
-function Header({ isLoggedIn, onLoggedOut }) {
+function Header({isLoggedin, setIsLoggedin}) {
   return (
     <header className="header">
       <div className="header__inner">
         <Link to="/" className="header__logo">
           Travel App
         </Link>
-        {isLoggedIn && <Navigation handlerLogOut={onLoggedOut} />}
+        {isLoggedin && <Navigation handlerLogOut={setIsLoggedin} />}
       </div>
     </header>
   );

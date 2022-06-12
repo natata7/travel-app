@@ -11,10 +11,10 @@ function SignIn({ onSubmit }) {
         errors,
         handleChange,
         handleSubmit,
-    } = useForm(signup, validate);
+    } = useForm(signin, validate);
     const navigate = useNavigate();
 
-    function signup() {
+    function signin() {
         console.log('No errors, submit callback called!');
         onSubmit(true);
         navigate("/", { replace: true });
@@ -34,6 +34,9 @@ function SignIn({ onSubmit }) {
                         required
                         value={values.email || ''}
                         onChange={handleChange} />
+                    {errors.email && (
+                        <p className="help is-danger">{errors.email}</p>
+                    )}
                 </label>
                 <label className={errors.password ? 'trip-popup__input input is-danger' : 'trip-popup__input input'}>
                     <span className="input__heading">Password</span>
@@ -42,6 +45,9 @@ function SignIn({ onSubmit }) {
                         required
                         value={values.password || ''}
                         onChange={handleChange} />
+                    {errors.password && (
+                        <p className="help is-danger">{errors.password}</p>
+                    )}
                 </label>
                 <button className="button" type="submit">Sign In</button>
             </form>

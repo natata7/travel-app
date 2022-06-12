@@ -8,7 +8,6 @@ import TripPopup from "../TripPopup/TripPopup";
 
 function TripPage() {
   const { tripId } = useParams();
-  console.log(tripId);
   const [error, setError] = useState(null);
   const [isLoaded, setIsLoaded] = useState(false);
   const [trip, setTrip] = useState([]);

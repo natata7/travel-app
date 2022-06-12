@@ -1,11 +1,10 @@
 import './Filter.css';
 import { TripDuration, TripLevel } from '../../enums/enum';
-import { DEFAULT_FILTER_VALUE } from '../../constants/filter.constants';
 
 const durationOptions = ['duration'].concat(Object.values(TripDuration));
 const levelOptions = ['level'].concat(Object.values(TripLevel));
 
-function Filter({ values, isDisabled, onChange, onPopupOpen }) {
+function Filter({ values, isDisabled, onChange}) {
 
     const handleChange = ({ target }) => {
         const { name, value } = target;

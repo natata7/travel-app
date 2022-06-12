@@ -1,6 +1,5 @@
 export function getFilteredTrips(trips, filterValues) {
   const { search, duration, level } = filterValues;
-  console.log(filterValues);
 
   return trips.filter((item) => {
     const isNameMatch = item.title

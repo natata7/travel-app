@@ -43,7 +43,6 @@ function TripPopup({ trip, onClose }) {
   const handleChangeGuests = (event) => {
     event.persist();
     setErrors(validateGuests(event.target.value));
-    console.log(event.target.value);
     if (event.target.value < 1) {
       setGuests(1);
     } else if (event.target.value > 10) {
