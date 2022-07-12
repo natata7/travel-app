@@ -2,7 +2,7 @@ export default interface IErrors {
     guests?: string;
     date?: string;
     message?: string;
-    fullname?: string;
+    fullName?: string;
     email?: string;
     password?: string;
   }

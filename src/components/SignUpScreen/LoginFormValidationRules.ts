@@ -3,10 +3,10 @@ import IForm from "../../interfaces/Form.interface";
 
 export default function validate(values: IForm) {
     let errors:IErrors = {};
-    if (!values.fullname) {
-        errors.fullname = 'Full name is required';
-      } else if (values.fullname.length < 3) {
-        errors.fullname = 'Full name is invalid';
+    if (!values.fullName) {
+        errors.fullName = 'Full name is required';
+      } else if (values.fullName.length < 3) {
+        errors.fullName = 'Full name is invalid';
       }
     if (!values.email) {
       errors.email = 'Email address is required';

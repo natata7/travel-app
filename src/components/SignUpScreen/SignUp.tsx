@@ -1,20 +1,59 @@
 import "./SignUp.css";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import useForm from "../../hooks/useForm";
+//import { register } from "../../store/profile/auth";
+import type { RootState, AppDispatch, IState } from '../../store/store'
 import validate from "./LoginFormValidationRules";
 import { useNavigate } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import Loader from "../Loader/loader";
+import { register } from "../../store/profile/auth";
 
-function SignUp({ onSubmit }:any) {
+function SignUp() {
   const { values, errors, handleChange, handleSubmit } = useForm(
     signup,
     validate
   );
+  const [successful, setSuccessful] = useState<Boolean>(false);
+
   const navigate = useNavigate();
 
+  const { user }:any = useSelector<IState>(state => ({
+    user: state.profile.user
+  }));
+  const dispatch = useDispatch<AppDispatch>();
+  const [isLoading, setIsLoading] = useState(false);
+
+  const hasUser = Boolean(user);
+
+  const handleRegister = (formValue: { fullName: string; email: string; password: string }) => {
+    const { fullName, email, password } = formValue;
+    console.log('sign {fullName, email, password}')
+    console.log({ fullName, email, password })
+    setIsLoading(true);
+    setSuccessful(false);
+    dispatch(register({ fullName, email, password }))
+      .unwrap()
+      .then(() => {
+        setSuccessful(true);
+        setIsLoading(false);
+        console.log('hello')
+        navigate("/", { replace: true });
+      })
+      .catch(() => {
+        setSuccessful(false);
+        setIsLoading(false);
+        console.log('hello2')
+      });
+  };
+
   function signup() {
-    console.log("No errors, submit callback called!");
-    onSubmit(true);
-    navigate("/", { replace: true });
+    handleRegister(values); 
+  }
+
+  if (!hasUser && isLoading) {
+    return <Loader />;
   }
 
   return (
@@ -24,21 +63,21 @@ function SignUp({ onSubmit }:any) {
         <h2 className="sign-up-form__title">Sign Up</h2>
         <label
           className={
-            errors.fullname
+            errors.fullName
               ? "trip-popup__input input is-danger"
               : "trip-popup__input input"
           }
         >
           <span className="input__heading">Full name</span>
           <input
-            name="fullname"
+            name="fullName"
             type="text"
             required
-            value={values.fullname || ""}
+            value={values.fullName || ""}
             onChange={handleChange}
           />
-          {errors.fullname && (
-            <p className="help is-danger">{errors.fullname}</p>
+          {errors.fullName && (
+            <p className="help is-danger">{errors.fullName}</p>
           )}
         </label>
         <label
@@ -88,3 +127,4 @@ function SignUp({ onSubmit }:any) {
   );
 }
 export default SignUp;
+

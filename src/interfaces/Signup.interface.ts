@@ -1,5 +1,5 @@
 export interface IErrors {
-    guests?: String;
-    date?: String;
-    message?: String;
-  }
+  guests?: String;
+  date?: String;
+  message?: String;
+}

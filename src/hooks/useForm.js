@@ -3,8 +3,8 @@ import { IErrors } from "../interfaces/Error.interface";
 import { IForm } from "../interfaces/Form.interface";
 
 const useForm = (callback, validate) => {
-  const [values, setValues] = useState({fullname: '', email: '', password: ''});
-  const [errors, setErrors] = useState({fullname: '', email: '', password: ''});
+  const [values, setValues] = useState({fullName: '', email: '', password: ''});
+  const [errors, setErrors] = useState({fullName: '', email: '', password: ''});
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   useEffect(() => {

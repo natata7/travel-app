@@ -1,5 +1,5 @@
 export default interface IForm {
-    fullname?: string;
+    fullName?: string;
     email?: string;
     password?: string;
   }
