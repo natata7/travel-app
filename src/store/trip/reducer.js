@@ -14,7 +14,7 @@ const initialState = {
 
 const reducer = createReducer(initialState, (builder) => {
   builder.addCase(loadTrips.fulfilled, (state, action) => {
-    const { trips } = action.payload;
+    const trips = action.payload;
 
     state.trips = trips;
   });
