@@ -3,7 +3,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import useForm from "../../hooks/useForm";
 //import { register } from "../../store/profile/auth";
-import type { RootState, AppDispatch, IState } from '../../store/store'
+import type { AppDispatch, IState } from '../../store/store'
 import validate from "./LoginFormValidationRules";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";

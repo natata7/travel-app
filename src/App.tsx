@@ -12,9 +12,6 @@ import type { IState } from './store/store';
 
 function App() {
   const [isLoggedin, setIsLoggedin] = useState<boolean>(false);
-  function handleLoggedinClick(): void {
-    setIsLoggedin(true);
-  }
 
   const { user }:any = useSelector<IState>(state => ({
     user: state.profile.user
@@ -22,8 +19,6 @@ function App() {
   const hasUser = Boolean(user);
 
   useEffect(() => {
-    console.log('hasUser')
-    console.log(hasUser)
     if(hasUser && !isLoggedin) setIsLoggedin(true);
   });
 
