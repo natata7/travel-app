@@ -14,8 +14,7 @@ export interface IResponse {
 }
 
 async function registration<IUser>(fullName: string, email: string, password: string): Promise<IResponse> {
-  console.log('auth')
-  console.log(JSON.stringify({fullName, email, password}))
+
   const response = await fetch(
     `${BaseApiURL}${ApiPath.AUTH}${AuthApiPath.REGISTER}`,
     {
@@ -31,8 +30,26 @@ async function registration<IUser>(fullName: string, email: string, password: st
   return data;
 }
 
+async function login<IUser>(email: string, password: string): Promise<IResponse> {
+
+  const response = await fetch(
+    `${BaseApiURL}${ApiPath.AUTH}${AuthApiPath.LOGIN}`,
+    {
+      method: HttpMethod.POST,
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({email, password}),
+    }
+  );
+  const data = await response.json();
+
+  return data;
+}
+
 
 const authService = {
   registration,
+  login
 };
 export default authService;

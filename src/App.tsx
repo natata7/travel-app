@@ -24,7 +24,7 @@ function App() {
   useEffect(() => {
     console.log('hasUser')
     console.log(hasUser)
-    if(hasUser) setIsLoggedin(true);
+    if(hasUser && !isLoggedin) setIsLoggedin(true);
   });
 
   return (

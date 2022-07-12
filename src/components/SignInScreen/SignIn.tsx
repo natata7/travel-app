@@ -1,8 +1,13 @@
 import "./SignIn.css";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import useForm from "../../hooks/useForm";
 import validate from './LoginFormValidationRules';
 import { useNavigate } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import Loader from "../Loader/loader";
+import { register } from "../../store/profile/auth";
+import type { RootState, AppDispatch, IState } from '../../store/store'
 
 function SignIn({ onSubmit }:any) {
 
@@ -13,6 +18,14 @@ function SignIn({ onSubmit }:any) {
         handleSubmit,
     } = useForm(signin, validate);
     const navigate = useNavigate();
+
+    const { user }:any = useSelector<IState>(state => ({
+        user: state.profile.user
+      }));
+      const dispatch = useDispatch<AppDispatch>();
+      const [isLoading, setIsLoading] = useState(false);
+    
+      const hasUser = Boolean(user);
 
     function signin() {
         console.log('No errors, submit callback called!');

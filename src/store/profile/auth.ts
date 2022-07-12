@@ -23,79 +23,41 @@ export const register = createAsyncThunk(ActionType.REGISTER, async ({ fullName,
 
   try {
     const response:IResponse = await AuthService.registration(fullName, email, password);
-    console.log('response')
-    console.log(response)
 
     const { user, token } = response;
-    console.log('user')
-    console.log(user)
-    console.log('token')
-    console.log(token)
     localStorage.setItem('token', token);
+
     return user;
   } catch (error:any) {
-    console.log('error')
-    console.log(error)
-    return //thunkAPI.rejectWithValue();
+
+    return 
   }
 
 });
 
-// const addStatus = createAsyncThunk(
-//   ActionType.ADD_STATUS,
-//   async (request, { extra: { services } }) => {
-//     const { result } = await services.auth.addStatus(request);
-//     return request;
-//   }
-// );
+export const login = createAsyncThunk(
+  ActionType.LOG_IN,
+  async ({ email, password }:any, thunkAPI) => {
 
-// export const login = createAsyncThunk(
-//   ActionType.LOG_IN,
-//   async ({ username, password }:any, thunkAPI) => {
-//     try {
-//       const data = await AuthService.login(username, password);
-//       return { user: data };
-//     } catch (error:any) {
-//       const message =
-//         (error.response &&
-//           error.response.data &&
-//           error.response.data.message) ||
-//         error.message ||
-//         error.toString();
-//       //thunkAPI.dispatch(setMessage(message));
-//       return //thunkAPI.rejectWithValue();
-//     }
-//   }
-// );
+    try {
+      const response:IResponse = await AuthService.login(email, password);
 
-// const initialState = {
-//   user: null
-// };
+      return response;
+    } catch (error:any) {
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+      
+      return message
+    }
+  }
+);
 
-// const authSlice = createSlice({
-//   name: "auth",
-//   initialState,
-//   extraReducers: {
-//     [register.fulfilled]: (state, action) => {
-//       state.isLoggedIn = true;
-//     },
-//     [register.rejected]: (state, action) => {
-//       state.isLoggedIn = false;
-//     },
-//     [login.fulfilled]: (state, action) => {
-//       state.isLoggedIn = true;
-//       state.user = action.payload.user;
-//     },
-//     [login.rejected]: (state, action) => {
-//       state.isLoggedIn = false;
-//       state.user = null;
-//     },
-//     // [logout.fulfilled]: (state, action) => {
-//     //   state.isLoggedIn = false;
-//     //   state.user = null;
-//     // },
-//   },
-//   reducers: {}
-// });
-// const { reducer } = authSlice;
-//export default reducer;
+export const logout = createAsyncThunk(ActionType.LOG_OUT, async (_request ) => {
+  localStorage.removeItem('token');
+
+  return null;
+});
