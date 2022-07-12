@@ -24,10 +24,12 @@ async function getAllTrips(): Promise<ITrip[]> {
 }
 
 async function getTrip(id:string) {
+  console.log(`${BaseApiURL}${ApiPath.TRIPS}${PostsApiPath.ROOT}${id}`);
   const response = await fetch(
     `${BaseApiURL}${ApiPath.TRIPS}${PostsApiPath.ROOT}${id}`,
     {
       method: HttpMethod.GET,
+      headers: authHeader()
     }
   );
   const data = await response.json();

@@ -6,35 +6,40 @@ import Loader from "../Loader/loader";
 import TripPopup from "../TripPopup/TripPopup";
 import { ITrip } from "../../interfaces/Trip.interface";
 import IErrors from "../../interfaces/Error.interface";
+import { useSelector, useDispatch } from "react-redux";
+import { loadTripById } from "../../store/trip/actions";
+import type { AppDispatch, IState } from "../../store/store";
 
 function TripPage() {
   const { tripId } = useParams<string>();
   const [error, setError] = useState<IErrors | null>(null);
-  const [isLoaded, setIsLoaded] = useState<boolean>(false);
-  const [trip, setTrip] = useState<ITrip>();
+  const [isLoaded, setIsLoading] = useState<boolean>(false);
   const [currentTrip, setCurrentTrip] = useState<ITrip | null>();
 
   const handleAddPopupOpen = () => setCurrentTrip(trip);
   const handleAddPopupClose = () => setCurrentTrip(null);
 
-  // const handleTripSave = useCallback<Function>((tripId: string) => {
-  //   setCurrentTrip(tripId);
-  // }, []);
+  const dispatch = useDispatch<AppDispatch>();
+  const { trip }:any = useSelector<IState>(state => ({
+    trip: state.trips.expandedTrip
+  }));
+
+  const handlePostLoad = useCallback(() => {
+    dispatch(loadTripById(tripId as string))
+      .unwrap()
+      .catch(() => {
+        setIsLoading(true);
+      })
+      .finally(() => {
+        setIsLoading(true);
+      });
+  }, [dispatch, setIsLoading]);
 
   useEffect(() => {
-    getTripDetails(tripId)
-      .then((res) => res)
-      .then(
-        (result) => {
-          setIsLoaded(true);
-          setTrip(result);
-        },
-        (error) => {
-          setIsLoaded(true);
-          setError(error);
-        }
-      );
-  }, []);
+    if(tripId){
+      handlePostLoad()
+    }
+  }, [handlePostLoad, tripId]);
 
   if (error) {
     return <div>Error: {error.message}</div>;

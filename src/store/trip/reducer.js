@@ -1,7 +1,7 @@
 import { createReducer, isAnyOf } from "@reduxjs/toolkit";
 import {
   loadTrips,
-  toggleExpandedTrip,
+  loadTripById,
   setBooking,
   getBooking,
   deleteBooking,
@@ -18,8 +18,8 @@ const reducer = createReducer(initialState, (builder) => {
 
     state.trips = trips;
   });
-  builder.addCase(toggleExpandedTrip.fulfilled, (state, action) => {
-    const { trip } = action.payload;
+  builder.addCase(loadTripById.fulfilled, (state, action) => {
+    const trip = action.payload;
 
     state.expandedTrip = trip;
   });

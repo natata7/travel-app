@@ -10,7 +10,8 @@ export interface IState {
     user: IUser
   }
   trips: {
-    trips: ITrip[]
+    trips: ITrip[];
+    expandedTrip: ITrip;
   };
 }
 

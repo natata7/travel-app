@@ -22,7 +22,7 @@ const loadTrips = createAsyncThunk(ActionType.ALL_TRIPS, async () => {
   return trips;
 });
 
-const toggleExpandedTrip = createAsyncThunk(
+const loadTripById = createAsyncThunk(
   ActionType.SET_EXPANDED_TRIP,
   async (tripId: string) => {
     const trip = tripId ? await PostService.getTrip(tripId) : undefined;
@@ -62,4 +62,4 @@ const deleteBooking = createAsyncThunk(
   }
 );
 
-export { loadTrips, toggleExpandedTrip, setBooking, getBooking, deleteBooking };
+export { loadTrips, loadTripById, setBooking, getBooking, deleteBooking };
