@@ -26,9 +26,10 @@ async function registration<IUser>(fullName: string, email: string, password: st
       body: JSON.stringify({fullName, email, password}),
     }
   ).then(handleResponse);
-  const data = await response.json();
 
-  return data;
+  //const data = await response.json();
+  
+  return response;
 }
 
 async function login<IUser>(email: string, password: string): Promise<IResponse> {
@@ -42,10 +43,10 @@ async function login<IUser>(email: string, password: string): Promise<IResponse>
       },
       body: JSON.stringify({email, password}),
     }
-  );
-  const data = await response.json();
+  ).then(handleResponse);
 
-  return data;
+  //const data = await response.json();
+  return response;
 }
 
 
