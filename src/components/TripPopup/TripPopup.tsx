@@ -70,7 +70,12 @@ function TripPopup({ trip, onClose }: ITripPopupProps) {
     let currDate: Date | string = new Date();
     if (date) {
       currDate = new Date(date);
+    } else {
+      const today = new Date()
+      currDate = new Date(today)
+      currDate.setDate(currDate.getDate() + 1)
     }
+    
     currDate = currDate.toISOString();
 
     const query = {
