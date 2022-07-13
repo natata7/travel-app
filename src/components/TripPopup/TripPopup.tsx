@@ -64,7 +64,6 @@ function TripPopup({ trip, onClose }: ITripPopupProps) {
     } else {
       setGuests(currentGuestsValue);
     }
-    console.log(guests);
   };
 
   const handleSubmit = () => {
@@ -73,7 +72,7 @@ function TripPopup({ trip, onClose }: ITripPopupProps) {
       currDate = new Date(date);
     }
     currDate = currDate.toISOString();
-    console.log(user.id);
+
     const query = {
       tripId: trip.id,
       userId: user.id,

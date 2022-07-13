@@ -29,8 +29,6 @@ function SignUp() {
 
   const handleRegister = (formValue: { fullName: string; email: string; password: string }) => {
     const { fullName, email, password } = formValue;
-    console.log('sign {fullName, email, password}')
-    console.log({ fullName, email, password })
     setIsLoading(true);
     setSuccessful(false);
     dispatch(register({ fullName, email, password }))
@@ -38,13 +36,12 @@ function SignUp() {
       .then(() => {
         setSuccessful(true);
         setIsLoading(false);
-        console.log('hello')
+
         navigate("/", { replace: true });
       })
       .catch(() => {
         setSuccessful(false);
         setIsLoading(false);
-        console.log('hello2')
       });
   };
 

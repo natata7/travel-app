@@ -2,7 +2,6 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import { IResponse } from '../../interfaces/User.interface'
 import AuthService from "../../services/auth.service";
 import { ActionType } from './common';
-import { useNavigate } from "react-router-dom";
 
 export const register = createAsyncThunk(ActionType.REGISTER, async ({ fullName, email, password }:any, thunkAPI ) => {
     const response:IResponse = await AuthService.registration(fullName, email, password);
@@ -17,7 +16,7 @@ export const login = createAsyncThunk(
   ActionType.LOG_IN,
   async ({ email, password }:any, thunkAPI) => {
       const response:IResponse = await AuthService.login(email, password);
-      console.log('hwe')
+      
       const { user, token } = response;
       localStorage.setItem('token', token);
 
@@ -25,11 +24,7 @@ export const login = createAsyncThunk(
   }
 );
 
-export const logout = createAsyncThunk(ActionType.LOG_OUT, async (_request ) => {
+export const logout = createAsyncThunk(ActionType.LOG_OUT, async () => {
   localStorage.removeItem('token');
-
-  const navigate = useNavigate();
-  navigate("/sign-in", { replace: true });
-
-  return null;
+  return true;
 });

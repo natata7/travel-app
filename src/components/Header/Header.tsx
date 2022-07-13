@@ -14,7 +14,7 @@ function Header({isLoggedin, setIsLoggedin}: IHeaderProps) {
         <Link to="/" className="header__logo">
           Travel App
         </Link>
-        {isLoggedin && <Navigation handlerLogOut={setIsLoggedin} />}
+        {isLoggedin && <Navigation />}
       </div>
     </header>
   );

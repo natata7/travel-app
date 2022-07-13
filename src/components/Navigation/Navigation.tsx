@@ -1,15 +1,26 @@
 import { Link } from "react-router-dom";
 import BriefCase from "../icons/briefcase";
 import User from "../icons/user";
+import { useNavigate } from "react-router-dom";
+import { logout } from "../../store/profile/auth";
+import { useDispatch } from "react-redux";
+import type { AppDispatch } from "../../store/store";
 
-interface IHandlerLogOutProps {
-  handlerLogOut: (arg0: boolean) => void;
-}
+function Navigation() {
+  const navigate = useNavigate();
+  const dispatch = useDispatch<AppDispatch>();
 
-function Navigation({ handlerLogOut }: IHandlerLogOutProps) {
-  const onClickhandler = (): void => {
-    handlerLogOut(false);
+  const handlerLogOut = () => {
+    dispatch(logout())
+    .unwrap()
+      .then(() => {
+        navigate("/sign-in", { replace: true });
+      })
+      .catch(() => {
+        //
+      });
   };
+
   return (
     <nav className="header__nav">
       <ul className="nav-header__list">
@@ -30,7 +41,7 @@ function Navigation({ handlerLogOut }: IHandlerLogOutProps) {
               <li className="profile-nav__item">
                 <button
                   className="profile-nav__sign-out button"
-                  onClick={onClickhandler}
+                  onClick={handlerLogOut}
                 >
                   Sign Out
                 </button>

@@ -9,8 +9,6 @@ interface IBookingTripCardProps {
 function BookingTripCard({ booking, onClose }:IBookingTripCardProps) {
   var date = new Date(booking.date);
 
-  console.log(booking)
-
   return (
     <li className="booking">
       <h3 className="booking__title">{booking.trip.title}</h3>

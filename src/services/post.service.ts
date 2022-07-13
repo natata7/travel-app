@@ -31,7 +31,6 @@ async function getAllTrips(): Promise<ITrip[]> {
 }
 
 async function getTrip(id:string) {
-  console.log(`${BaseApiURL}${ApiPath.TRIPS}${PostsApiPath.ROOT}${id}`);
   const response = await fetch(
     `${BaseApiURL}${ApiPath.TRIPS}${PostsApiPath.ROOT}${id}`,
     {
@@ -45,7 +44,6 @@ async function getTrip(id:string) {
 }
 
 async function setBooking(query: IQuery) {
-  console.log(JSON.stringify(query))
   let headers:any = authHeader();
   headers['Content-Type']= 'application/json'
   const response = await fetch(`${BaseApiURL}${ApiPath.BOOKINGS}`, {
