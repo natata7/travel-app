@@ -2,8 +2,9 @@ import { configureStore } from '@reduxjs/toolkit'
 import { profileReducer } from './root-reducer';
 import { tripsReducer } from './root-reducer';
 import { useDispatch } from 'react-redux';
-import { IUser } from './profile/auth';
+import { IUser } from '../interfaces/User.interface';
 import { ITrip } from '../interfaces/Trip.interface';
+import { IBooking } from '../interfaces/Booking.interface';
 
 export interface IState {
   profile: {
@@ -12,6 +13,7 @@ export interface IState {
   trips: {
     trips: ITrip[];
     expandedTrip: ITrip;
+    bookings: IBooking;
   };
 }
 

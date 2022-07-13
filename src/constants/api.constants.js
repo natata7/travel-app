@@ -15,4 +15,9 @@ export const PostsApiPath = {
   $ID: "/:id",
 };
 
+export const BookingApiPath = {
+  ROOT: "/",
+  $ID: "/:id",
+};
+
 export const BaseApiURL = "https://travel-app-api.glitch.me/api/v1";

@@ -1,6 +1,7 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { ActionType } from "./common";
 import PostService from "../../services/post.service";
+import { IBooking } from "../../interfaces/Booking.interface";
 
 export interface ITrip {
   id: string;
@@ -13,12 +14,15 @@ export interface ITrip {
   createdAt: string;
 }
 
+export interface IQuery {
+  tripId: string;
+  userId: string;
+  guests: number;
+  date: string;
+}
+
 const loadTrips = createAsyncThunk(ActionType.ALL_TRIPS, async () => {
   const trips = await PostService.getAllTrips();
-
-  console.log('trips')
-  console.log(trips)
-
   return trips;
 });
 
@@ -30,36 +34,24 @@ const loadTripById = createAsyncThunk(
   }
 );
 
-const setBooking = createAsyncThunk(ActionType.SET_BOKING, async (postId) => {
-  //const post = await services.post.getPost(postId);
-  //return { post };
+const setBooking = createAsyncThunk(ActionType.SET_BOOKING, async (query: IQuery) => {
+  const booking = await PostService.setBooking(query);
+  return booking;
 });
 
-const getBooking = createAsyncThunk(ActionType.GET_BOKING, async (post) => {
-  //const { id } = await services.post.addPost(post);
-  //const newPost = await services.post.getPost(id);
-  //return { post: newPost };
+const getBookings = createAsyncThunk(ActionType.GET_BOOKING, async (post) => {
+  const bookings = await PostService.getBookings();
+  return bookings;
 });
 
 const deleteBooking = createAsyncThunk(
-  ActionType.DELETE_BOKING,
-  async (postId) => {
-    // const { id } = await services.post.likePost(postId);
-    // const diff = id ? 1 : -1; // if ID exists then the post was liked, otherwise - like was removed
-    // const mapLikes = (post) => ({
-    //   ...post,
-    //   likeCount: Number(post.likeCount) + diff, // diff is taken from the current closure
-    // });
-    // const {
-    //   posts: { posts, expandedPost },
-    // } = getState();
-    // const updated = posts.map((post) =>
-    //   post.id !== postId ? post : mapLikes(post)
-    // );
-    // const updatedExpandedPost =
-    //   expandedPost?.id === postId ? mapLikes(expandedPost) : undefined;
-    // return { posts: updated, expandedPost: updatedExpandedPost };
+  ActionType.DELETE_BOOKING,
+  async (bookingId:string) => {
+    const result = await PostService.deleteBooking(bookingId);
+    if (result)
+    
+    return bookingId;
   }
 );
 
-export { loadTrips, loadTripById, setBooking, getBooking, deleteBooking };
+export { loadTrips, loadTripById, setBooking, getBookings, deleteBooking };

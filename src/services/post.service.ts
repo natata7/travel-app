@@ -1,4 +1,4 @@
-import { BaseApiURL, ApiPath, PostsApiPath } from "../constants/api.constants";
+import { BaseApiURL, ApiPath, PostsApiPath, BookingApiPath } from "../constants/api.constants";
 import { HttpMethod } from "../constants/http.constants";
 import authHeader from "./auth-header";
 
@@ -11,6 +11,13 @@ export interface ITrip {
   price: number;
   image: string;
   createdAt: string;
+}
+
+export interface IQuery {
+  tripId: string;
+  userId: string;
+  guests: number;
+  date: string;
 }
 
 async function getAllTrips(): Promise<ITrip[]> {
@@ -37,18 +44,50 @@ async function getTrip(id:string) {
   return data;
 }
 
-async function getBooking() {
+async function setBooking(query: IQuery) {
+  console.log(JSON.stringify(query))
+  let headers:any = authHeader();
+  headers['Content-Type']= 'application/json'
+  const response = await fetch(`${BaseApiURL}${ApiPath.BOOKINGS}`, {
+    method: HttpMethod.POST,
+    headers: headers,
+    body: JSON.stringify(query)
+  })
+  
+  const data = await response.json();
+
+  return data;
+}
+
+async function getBookings() {
   const response = await fetch(`${BaseApiURL}${ApiPath.BOOKINGS}`, {
     method: HttpMethod.GET,
+    headers: authHeader()
   });
   const data = await response.json();
 
   return data;
 }
 
+async function deleteBooking(id: string) {
+  const response = await fetch(`${BaseApiURL}${ApiPath.BOOKINGS}${BookingApiPath.ROOT}${id}`, {
+    method: HttpMethod.DELETE,
+    headers: authHeader()
+  });
+  if (response.status === 204){
+    return true;
+  } else{
+    return false;
+  }
+
+  
+}
+
 const PostService = {
   getAllTrips,
   getTrip,
-  getBooking,
+  setBooking,
+  getBookings,
+  deleteBooking
 };
 export default PostService;

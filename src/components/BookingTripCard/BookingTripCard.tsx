@@ -1,5 +1,5 @@
 import "./BookingTripCard.css";
-import { IBooking } from "../../interfaces/IBooking.interface";
+import { IBooking } from "../../interfaces/Booking.interface";
 
 interface IBookingTripCardProps {
   booking: IBooking;
@@ -8,6 +8,8 @@ interface IBookingTripCardProps {
 
 function BookingTripCard({ booking, onClose }:IBookingTripCardProps) {
   var date = new Date(booking.date);
+
+  console.log(booking)
 
   return (
     <li className="booking">

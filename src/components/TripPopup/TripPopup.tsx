@@ -3,11 +3,18 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import IErrors from "../../interfaces/Error.interface";
 import { ITripPopupProps } from "../../interfaces/Trip.interface";
+import { useSelector, useDispatch } from "react-redux";
+import type { AppDispatch, IState } from "../../store/store";
+import { setBooking } from "../../store/trip/actions";
 
-function TripPopup ({ trip, onClose }: ITripPopupProps) {
+function TripPopup({ trip, onClose }: ITripPopupProps) {
   const [guests, setGuests] = useState<number>(1);
   const [date, setDate] = useState<string>();
   const [errors, setErrors] = useState<any>({});
+  const dispatch = useDispatch<AppDispatch>();
+  const { user }: any = useSelector<IState>((state) => ({
+    user: state.profile.user,
+  }));
 
   const navigate = useNavigate();
 
@@ -16,6 +23,7 @@ function TripPopup ({ trip, onClose }: ITripPopupProps) {
     const dd = String(today.getDate() + 1).padStart(2, "0");
     const mm = String(today.getMonth() + 1).padStart(2, "0"); //January is 0!
     const yyyy = today.getFullYear();
+    //setDate(yyyy + "-" + mm + "-" + dd);
     return yyyy + "-" + mm + "-" + dd;
   };
 
@@ -39,12 +47,14 @@ function TripPopup ({ trip, onClose }: ITripPopupProps) {
   const handleChangeDate = (event: React.ChangeEvent<HTMLInputElement>) => {
     event.persist();
     setErrors(validateDate(event.target.value));
+
+    //const date = new Date(event.target.value);
     setDate(event.target.value);
   };
 
   const handleChangeGuests = (event: React.ChangeEvent<HTMLInputElement>) => {
     event.persist();
-    
+
     const currentGuestsValue = Number(event.target.value);
     setErrors(validateGuests(currentGuestsValue));
     if (currentGuestsValue < 1) {
@@ -54,10 +64,29 @@ function TripPopup ({ trip, onClose }: ITripPopupProps) {
     } else {
       setGuests(currentGuestsValue);
     }
-    console.log(guests)
+    console.log(guests);
   };
 
   const handleSubmit = () => {
+    let currDate: Date | string = new Date();
+    if (date) {
+      currDate = new Date(date);
+    }
+    currDate = currDate.toISOString();
+    console.log(user.id);
+    const query = {
+      tripId: trip.id,
+      userId: user.id,
+      guests: guests,
+      date: currDate,
+    };
+    dispatch(setBooking(query))
+      .unwrap()
+      .then(() => {
+        //navigate("/", { replace: true });
+      })
+      .catch(() => {});
+
     navigate("/bookings", { replace: true });
   };
 
@@ -102,7 +131,7 @@ function TripPopup ({ trip, onClose }: ITripPopupProps) {
                 min="1"
                 max="10"
                 required
-                value={guests || 1 }
+                value={guests || 1}
                 onChange={handleChangeGuests}
               />
               {errors.guests && (

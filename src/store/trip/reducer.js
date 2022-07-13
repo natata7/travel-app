@@ -3,7 +3,7 @@ import {
   loadTrips,
   loadTripById,
   setBooking,
-  getBooking,
+  getBookings,
   deleteBooking,
 } from "./actions";
 
@@ -23,30 +23,40 @@ const reducer = createReducer(initialState, (builder) => {
 
     state.expandedTrip = trip;
   });
-//   builder.addMatcher(
-//     isAnyOf(setBooking.fulfilled, addComment.fulfilled),
-//     (state, action) => {
-//       const { posts, expandedPost } = action.payload;
-//       state.posts = posts;
-//       state.expandedPost = expandedPost;
-//     }
-//   );
-//   builder.addMatcher(
-//     isAnyOf(getBooking.fulfilled, createPost.fulfilled),
-//     (state, action) => {
-//       const { post } = action.payload;
+  builder.addCase(getBookings.fulfilled, (state, action) => {
+    const bookings = action.payload;
 
-//       state.posts = [post, ...state.posts];
-//     }
-//   );
-//   builder.addMatcher(
-//     isAnyOf(deleteBooking.fulfilled, createPost.fulfilled),
-//     (state, action) => {
-//       const { post } = action.payload;
+    state.bookings = bookings;
+  });
+  builder.addCase(setBooking.fulfilled, (state, action) => {
+    const bookings = action.payload;
 
-//       state.posts = [post, ...state.posts];
-//     }
-//   );
+    state.bookings = bookings;
+  });
+  builder.addCase(deleteBooking.fulfilled, (state, action) => {
+    const bookings = state.bookings;
+    var filtered = bookings.filter(function (item) {
+      return item.id !== action.payload;
+    });
+
+    state.bookings = filtered;
+  });
+  //   builder.addMatcher(
+  //     isAnyOf(setBooking.fulfilled, addComment.fulfilled),
+  //     (state, action) => {
+  //       const { posts, expandedPost } = action.payload;
+  //       state.posts = posts;
+  //       state.expandedPost = expandedPost;
+  //     }
+  //   );
+  //   builder.addMatcher(
+  //     isAnyOf(deleteBooking.fulfilled, createPost.fulfilled),
+  //     (state, action) => {
+  //       const { post } = action.payload;
+
+  //       state.posts = [post, ...state.posts];
+  //     }
+  //   );
 });
 
 export { reducer };
