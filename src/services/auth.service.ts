@@ -1,5 +1,6 @@
 import { BaseApiURL, ApiPath, AuthApiPath } from "../constants/api.constants";
 import { HttpMethod } from "../constants/http.constants";
+import handleResponse from "./response-status";
 
 export interface IUser {
   id: string;
@@ -24,7 +25,7 @@ async function registration<IUser>(fullName: string, email: string, password: st
       },
       body: JSON.stringify({fullName, email, password}),
     }
-  );
+  ).then(handleResponse);
   const data = await response.json();
 
   return data;
