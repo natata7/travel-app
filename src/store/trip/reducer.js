@@ -1,4 +1,4 @@
-import { createReducer, isAnyOf } from "@reduxjs/toolkit";
+import { createReducer } from "@reduxjs/toolkit";
 import {
   loadTrips,
   loadTripById,
@@ -41,22 +41,6 @@ const reducer = createReducer(initialState, (builder) => {
 
     state.bookings = filtered;
   });
-  //   builder.addMatcher(
-  //     isAnyOf(setBooking.fulfilled, addComment.fulfilled),
-  //     (state, action) => {
-  //       const { posts, expandedPost } = action.payload;
-  //       state.posts = posts;
-  //       state.expandedPost = expandedPost;
-  //     }
-  //   );
-  //   builder.addMatcher(
-  //     isAnyOf(deleteBooking.fulfilled, createPost.fulfilled),
-  //     (state, action) => {
-  //       const { post } = action.payload;
-
-  //       state.posts = [post, ...state.posts];
-  //     }
-  //   );
 });
 
 export { reducer };

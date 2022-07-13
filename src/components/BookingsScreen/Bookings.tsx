@@ -1,5 +1,5 @@
 import "./Bookings.css";
-import { useMemo, useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback } from "react";
 import Loader from "../Loader/loader";
 import BookingTripCard from "../BookingTripCard/BookingTripCard";
 import IErrors from "../../interfaces/Error.interface";

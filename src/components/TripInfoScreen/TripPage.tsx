@@ -1,7 +1,6 @@
 import "./TripPage.css";
 import React, { useEffect, useState, useCallback } from "react";
 import { useParams } from "react-router-dom";
-import { getTripDetails } from "../../helpers/tripService";
 import Loader from "../Loader/loader";
 import TripPopup from "../TripPopup/TripPopup";
 import { ITrip } from "../../interfaces/Trip.interface";

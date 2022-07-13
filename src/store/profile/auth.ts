@@ -2,6 +2,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import { IResponse } from '../../interfaces/User.interface'
 import AuthService from "../../services/auth.service";
 import { ActionType } from './common';
+import { useNavigate } from "react-router-dom";
 
 export const register = createAsyncThunk(ActionType.REGISTER, async ({ fullName, email, password }:any, thunkAPI ) => {
 
@@ -45,6 +46,9 @@ export const login = createAsyncThunk(
 
 export const logout = createAsyncThunk(ActionType.LOG_OUT, async (_request ) => {
   localStorage.removeItem('token');
+
+  const navigate = useNavigate();
+  navigate("/sign-in", { replace: true });
 
   return null;
 });

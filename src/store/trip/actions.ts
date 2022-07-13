@@ -1,7 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { ActionType } from "./common";
 import PostService from "../../services/post.service";
-import { IBooking } from "../../interfaces/Booking.interface";
 
 export interface ITrip {
   id: string;

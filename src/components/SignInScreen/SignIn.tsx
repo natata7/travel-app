@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import Loader from "../Loader/loader";
 import { login } from "../../store/profile/auth";
-import type { RootState, AppDispatch, IState } from "../../store/store";
+import type { AppDispatch, IState } from "../../store/store";
 
 function SignIn({ onSubmit }: any) {
   const { values, errors, handleChange, handleSubmit } = useForm(
